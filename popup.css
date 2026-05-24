@@ -1,0 +1,106 @@
+@font-face {
+  font-family: "iA Writer Quattro";
+  src: url("assets/fonts/ia-writer/ia-writer-quattro/Static/iAWriterQuattroS-Regular.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "iA Writer Quattro";
+  src: url("assets/fonts/ia-writer/ia-writer-quattro/Static/iAWriterQuattroS-Bold.ttf")
+    format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  width: 320px;
+  padding: 16px;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.icon-container {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background:
+    var(--card) url("assets/icons/hover-notes-icon.svg") center / 24px 24px no-repeat;
+  box-shadow: var(--shadow-sm);
+}
+
+.brand {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.logo-text {
+  margin: 0;
+  overflow: hidden;
+  color: var(--foreground);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tagline,
+.version {
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.version {
+  font-size: 11px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.settings-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.action-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+}
+
+.action-card .ui-button {
+  width: 100%;
+}

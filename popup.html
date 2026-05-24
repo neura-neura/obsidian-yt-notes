@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Obsidian YT Notes</title>
+    <script src="theme.js"></script>
+    <link rel="stylesheet" href="shadcn.css" />
+    <link rel="stylesheet" href="popup.css" />
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="logo-container">
+        <div class="icon-container"></div>
+        <div class="brand">
+          <h1 class="logo-text">Obsidian YT Notes</h1>
+          <span class="tagline">Local Markdown notes for video platforms</span>
+          <span class="version"
+            >v<span id="version">1.0.0</span><span id="environment"></span
+          ></span>
+        </div>
+        <div class="header-actions">
+          <div class="ui-dropdown theme-menu">
+            <button
+              type="button"
+              class="ui-button ui-button-outline ui-button-icon theme-toggle"
+              title="Theme"
+              aria-haspopup="menu"
+              aria-expanded="false"
+              data-theme-toggle
+            >
+              <svg class="sun-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"></circle>
+                <path d="M12 2v2"></path>
+                <path d="M12 20v2"></path>
+                <path d="m4.93 4.93 1.41 1.41"></path>
+                <path d="m17.66 17.66 1.41 1.41"></path>
+                <path d="M2 12h2"></path>
+                <path d="M20 12h2"></path>
+                <path d="m6.34 17.66-1.41 1.41"></path>
+                <path d="m19.07 4.93-1.41 1.41"></path>
+              </svg>
+              <svg class="moon-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.99 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 20.99 12.79z"></path>
+              </svg>
+              <span class="sr-only">Toggle theme</span>
+            </button>
+            <div class="ui-dropdown-content" role="menu" aria-label="Theme">
+              <button type="button" class="ui-dropdown-item" role="menuitemradio" data-theme-value="light">Light</button>
+              <button type="button" class="ui-dropdown-item" role="menuitemradio" data-theme-value="dark">Dark</button>
+              <button type="button" class="ui-dropdown-item" role="menuitemradio" data-theme-value="system">System</button>
+            </div>
+          </div>
+          <button id="openSettings" class="ui-button ui-button-ghost ui-button-icon settings-btn" title="Settings" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="ui-card action-card">
+        <button id="injectEditor" class="ui-button ui-button-primary" type="button">Open notes folder</button>
+        <button id="viewMyNotes" class="ui-button ui-button-secondary" type="button">Open current video notes</button>
+      </div>
+    </div>
+  </body>
+</html>

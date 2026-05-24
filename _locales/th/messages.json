@@ -1,0 +1,14 @@
+{
+  "name": {
+    "message": "Obsidian YT Notes",
+    "description": "Extension name displayed in the Chrome Web Store and browser"
+  },
+  "description": {
+    "message": "Local Markdown notes for YouTube videos in Obsidian vaults",
+    "description": "Extension description displayed in the Chrome Web Store"
+  },
+  "allowYouTubeAds": {
+    "message": "อนุญาตโฆษณา YouTube",
+    "description": "Toggle label to control whether YouTube ads should be allowed to play"
+  }
+}

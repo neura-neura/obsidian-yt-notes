@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Obsidian YT Notes Settings</title>
+    <script src="theme.js"></script>
+    <link rel="stylesheet" href="shadcn.css" />
+    <link rel="stylesheet" href="options.css" />
+    <script src="options.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="floating-actions ui-card">
+        <div class="ui-dropdown theme-menu">
+          <button
+            type="button"
+            class="ui-button ui-button-outline ui-button-icon theme-toggle"
+            title="Theme"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            data-theme-toggle
+          >
+            <svg class="sun-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <svg class="moon-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.99 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 20.99 12.79z"></path>
+            </svg>
+            <span class="sr-only">Toggle theme</span>
+          </button>
+          <div class="ui-dropdown-content" role="menu" aria-label="Theme">
+            <button type="button" class="ui-dropdown-item" role="menuitemradio" data-theme-value="light">Light</button>
+            <button type="button" class="ui-dropdown-item" role="menuitemradio" data-theme-value="dark">Dark</button>
+            <button type="button" class="ui-dropdown-item" role="menuitemradio" data-theme-value="system">System</button>
+          </div>
+        </div>
+        <button id="save" class="ui-button ui-button-primary btn-primary" type="button">Save</button>
+        <button id="restore" class="ui-button ui-button-outline btn-secondary" type="button">Reset</button>
+        <span id="status" class="ui-status"></span>
+      </div>
+
+      <header>
+        <div class="logo-section">
+          <img src="assets/icons/hover-notes-icon.svg" alt="Obsidian YT Notes" class="logo" />
+          <h1>Obsidian YT Notes</h1>
+        </div>
+        <p class="tagline">Local Markdown video notes for your chosen folder.</p>
+      </header>
+
+      <main>
+        <section class="ui-card card">
+          <h2>General Settings</h2>
+          <p class="section-desc">Configure extension behavior</p>
+
+          <div class="settings-grid">
+            <div class="setting-row">
+              <div class="setting-info">
+                <label for="enabled">Enable Extension</label>
+                <span class="setting-desc">Turn Obsidian YT Notes on or off</span>
+              </div>
+              <input id="enabled" type="checkbox" class="ui-switch toggle" />
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label for="startHidden">Start with button hidden</label>
+                <span class="setting-desc">Button is invisible until you press V to show it</span>
+              </div>
+              <input id="startHidden" type="checkbox" class="ui-switch toggle" />
+            </div>
+
+            <!-- TODO: Implement these features
+            <div class="setting-row">
+              <div class="setting-info">
+                <label for="rememberSpeed">Remember playback speed</label>
+                <span class="setting-desc">Restore last used speed for each video</span>
+              </div>
+              <input id="rememberSpeed" type="checkbox" class="toggle" />
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label for="forceLastSavedSpeed">Force last saved speed</label>
+                <span class="setting-desc">Override video player speed settings</span>
+              </div>
+              <input id="forceLastSavedSpeed" type="checkbox" class="toggle" />
+            </div>
+            -->
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label for="audioBoolean">Enable Obsidian YT Notes for audio</label>
+                <span class="setting-desc">Show button on audio players too</span>
+              </div>
+              <input id="audioBoolean" type="checkbox" class="ui-switch toggle" />
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label for="controllerOpacity">Button opacity</label>
+                <span class="setting-desc">Transparency of the floating button (0-1)</span>
+              </div>
+              <input id="controllerOpacity" type="text" value="" class="ui-input input-small" placeholder="0.5" />
+            </div>
+
+            <div class="setting-row">
+              <div class="setting-info">
+                <label for="timestampListMode">Timestamp format</label>
+                <span class="setting-desc">Choose whether inserted timestamps become list items</span>
+              </div>
+              <select id="timestampListMode" class="ui-select">
+                <option value="list">List item</option>
+                <option value="plain">Plain line</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="ui-card card">
+          <h2>Blocked Sites</h2>
+          <p class="section-desc">Sites where Obsidian YT Notes is disabled (one per line, regex supported)</p>
+
+          <textarea id="blacklist" class="ui-textarea" rows="8" placeholder="example.com&#10;/(.+)youtube\.com(\/*)$/gi"></textarea>
+        </section>
+
+        <section class="ui-card card" id="customs">
+          <h2>Keyboard Shortcuts</h2>
+          <p class="section-desc">Customize keyboard shortcuts for video control</p>
+
+          <div class="shortcut-grid">
+            <div class="row customs" id="display">
+              <span class="action-label">Show/hide notes button</span>
+              <input type="hidden" class="customDo" value="display" />
+              <input class="ui-input customKey" type="text" value="" placeholder="press shortcut" />
+              <input class="ui-input customValue" type="text" placeholder="value" disabled />
+              <select class="ui-select customForce" hidden>
+                <option value="false">Do not disable website key bindings</option>
+                <option value="true">Disable website key bindings</option>
+              </select>
+            </div>
+
+            <div class="row customs" id="open-video-note">
+              <span class="action-label">Open notes panel</span>
+              <input type="hidden" class="customDo" value="open-video-note" />
+              <input class="ui-input customKey" type="text" value="" placeholder="press shortcut" />
+              <input class="ui-input customValue" type="text" placeholder="value" disabled />
+              <select class="ui-select customForce" hidden>
+                <option value="false">Do not disable website key bindings</option>
+                <option value="true">Disable website key bindings</option>
+              </select>
+            </div>
+
+            <div class="row customs" id="open-notes-folder">
+              <span class="action-label">Open notes folder</span>
+              <input type="hidden" class="customDo" value="open-notes-folder" />
+              <input class="ui-input customKey" type="text" value="" placeholder="press shortcut" />
+              <input class="ui-input customValue" type="text" placeholder="value" disabled />
+              <select class="ui-select customForce" hidden>
+                <option value="false">Do not disable website key bindings</option>
+                <option value="true">Disable website key bindings</option>
+              </select>
+            </div>
+
+            <div class="row customs" id="open-floating-note">
+              <span class="action-label">Open floating notes panel</span>
+              <input type="hidden" class="customDo" value="open-floating-note" />
+              <input class="ui-input customKey" type="text" value="" placeholder="press shortcut" />
+              <input class="ui-input customValue" type="text" placeholder="value" disabled />
+              <select class="ui-select customForce" hidden>
+                <option value="false">Do not disable website key bindings</option>
+                <option value="true">Disable website key bindings</option>
+              </select>
+            </div>
+
+            <div class="row customs" id="slower">
+              <span class="action-label">Decrease speed</span>
+              <input type="hidden" class="customDo" value="slower" />
+              <input class="ui-input customKey" type="text" value="" placeholder="press shortcut" />
+              <input class="ui-input customValue" type="text" placeholder="0.10" />
+              <select class="ui-select customForce" hidden>
+                <option value="false">Do not disable website key bindings</option>
+                <option value="true">Disable website key bindings</option>
+              </select>
+            </div>
+
+            <div class="row customs" id="faster">
+              <span class="action-label">Increase speed</span>
+              <input type="hidden" class="customDo" value="faster" />
+              <input class="ui-input customKey" type="text" value="" placeholder="press shortcut" />
+              <input class="ui-input customValue" type="text" placeholder="0.10" />
+              <select class="ui-select customForce" hidden>
+                <option value="false">Do not disable website key bindings</option>
+                <option value="true">Disable website key bindings</option>
+              </select>
+            </div>
+
+            <div class="row customs" id="rewind">
+              <span class="action-label">Rewind</span>
+              <input type="hidden" class="customDo" value="rewind" />
+              <input class="ui-input customKey" type="text" value="" placeholder="press shortcut" />
+              <input class="ui-input customValue" type="text" placeholder="10" />
+              <select class="ui-select customForce" hidden>
+                <option value="false">Do not disable website key bindings</option>
+                <option value="true">Disable website key bindings</option>
+              </select>
+            </div>
+
+            <div class="row customs" id="advance">
+              <span class="action-label">Advance</span>
+              <input type="hidden" class="customDo" value="advance" />
+              <input class="ui-input customKey" type="text" value="" placeholder="press shortcut" />
+              <input class="ui-input customValue" type="text" placeholder="10" />
+              <select class="ui-select customForce" hidden>
+                <option value="false">Do not disable website key bindings</option>
+                <option value="true">Disable website key bindings</option>
+              </select>
+            </div>
+
+            <div class="row customs" id="reset">
+              <span class="action-label">Reset speed</span>
+              <input type="hidden" class="customDo" value="reset" />
+              <input class="ui-input customKey" type="text" value="" placeholder="press shortcut" />
+              <input class="ui-input customValue" type="text" placeholder="1.00" disabled />
+              <select class="ui-select customForce" hidden>
+                <option value="false">Do not disable website key bindings</option>
+                <option value="true">Disable website key bindings</option>
+              </select>
+            </div>
+
+            <div class="row customs" id="fast">
+              <span class="action-label">Preferred speed</span>
+              <input type="hidden" class="customDo" value="fast" />
+              <input class="ui-input customKey" type="text" value="" placeholder="press shortcut" />
+              <input class="ui-input customValue" type="text" placeholder="1.80" />
+              <select class="ui-select customForce" hidden>
+                <option value="false">Do not disable website key bindings</option>
+                <option value="true">Disable website key bindings</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- <button id="add" class="btn-secondary">+ Add New Shortcut</button> -->
+        </section>
+
+        <details class="faq-section">
+          <summary>Troubleshooting & FAQ</summary>
+          <div class="faq-content">
+            <h4>Controls not showing for local videos?</h4>
+            <p>You need to grant additional permissions:</p>
+            <ul>
+              <li>Navigate to <code>chrome://extensions</code></li>
+              <li>Find Obsidian YT Notes and enable "Allow access to file URLs"</li>
+            </ul>
+          </div>
+        </details>
+      </main>
+
+      <footer>
+        <p>Obsidian YT Notes v1.2.21</p>
+      </footer>
+    </div>
+  </body>
+</html>

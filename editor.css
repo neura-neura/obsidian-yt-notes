@@ -1,0 +1,824 @@
+:root {
+  --bg: var(--background);
+  --panel: var(--card);
+  --panel-2: var(--secondary);
+  --text: var(--foreground);
+  --editor-muted: var(--muted-foreground);
+  --editor-accent: var(--primary);
+  --ok: var(--success);
+  --warn: var(--warning);
+  --topbar: var(--card);
+  --vault-panel: var(--muted);
+  --input-bg: var(--background);
+  --editor-bg: var(--background);
+  --editor-text: var(--foreground);
+  --heading-text: var(--foreground);
+  --subtle-text: var(--muted-foreground);
+  --link: oklch(0.55 0.18 255);
+  --toolbar-hover: var(--accent);
+  --toolbar-active: color-mix(in oklch, var(--primary) 18%, transparent);
+  --toolbar-active-ring: color-mix(in oklch, var(--ring) 35%, transparent);
+  --toolbar-icon-filter: none;
+  --shadow: rgb(0 0 0 / 0.16);
+}
+
+.dark {
+  --link: oklch(0.78 0.12 255);
+  --toolbar-icon-filter: invert(1);
+  --shadow: rgb(0 0 0 / 0.36);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) - 2px);
+  padding: 7px 10px;
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--ring);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.primary {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.secondary,
+.icon-btn {
+  background: var(--secondary);
+}
+
+.icon-btn {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.icon-btn svg {
+  width: 17px;
+  height: 17px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.icon-btn.active {
+  border-color: var(--ring);
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+#toggleDockMode .floating-panel-icon {
+  display: none;
+}
+
+#toggleDockMode.is-floating .dock-panel-icon {
+  display: none;
+}
+
+#toggleDockMode.is-floating .floating-panel-icon {
+  display: block;
+}
+
+.shell {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  height: 100vh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.topbar,
+.vault-banner,
+.editor-toolbar,
+.statusbar,
+.list-header {
+  display: flex;
+  align-items: center;
+}
+
+.topbar {
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--topbar);
+}
+
+.brand {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.muted,
+#folderStatus,
+#activeFile {
+  color: var(--editor-muted);
+  font-size: 12px;
+}
+
+.top-actions {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.vault-banner {
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  background: var(--vault-panel);
+}
+
+.vault-banner strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.note-list {
+  min-width: 0;
+  min-height: 0;
+  border-right: 1px solid var(--border);
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+}
+
+.list-header {
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+}
+
+.notes {
+  overflow: auto;
+  padding: 8px;
+}
+
+.note-item-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 38px;
+  align-items: stretch;
+  gap: 8px;
+  min-height: 64px;
+  margin-bottom: 8px;
+}
+
+.new-note-btn {
+  flex: 0 0 auto;
+}
+
+.note-item {
+  height: auto;
+  min-height: 64px;
+  width: 100%;
+  text-align: left;
+  display: block;
+  margin-bottom: 0;
+  padding: 11px 12px;
+  background: transparent;
+}
+
+.delete-note-btn {
+  align-self: stretch;
+  width: 38px;
+  height: auto;
+  min-height: 64px;
+  color: var(--editor-muted);
+}
+
+.delete-note-btn:hover {
+  color: var(--warn);
+}
+
+.note-item.active {
+  border-color: var(--ring);
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.note-title {
+  display: block;
+  overflow: hidden;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note-meta {
+  display: block;
+  color: var(--editor-muted);
+  font-size: 12px;
+  line-height: 1.25;
+  margin-top: 5px;
+}
+
+.empty {
+  color: var(--editor-muted);
+  padding: 12px 4px;
+  line-height: 1.45;
+}
+
+.editor-pane {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.editor-toolbar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+}
+
+.title-label {
+  color: var(--editor-muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+#noteTitle,
+#noteSource {
+  min-width: 0;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: var(--input-bg);
+  color: var(--text);
+}
+
+.markdown-surface {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--editor-bg);
+}
+
+#noteEditor {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+  background: var(--editor-bg);
+}
+
+#noteEditor .toastui-editor-defaultUI {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  min-height: 0;
+  border: 0;
+  background: var(--editor-bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+#noteEditor .toastui-editor-toolbar {
+  border-color: var(--border);
+  background: var(--topbar);
+}
+
+#noteEditor .toastui-editor-defaultUI-toolbar {
+  border-color: var(--border);
+  background: var(--topbar);
+}
+
+#noteEditor .toastui-editor-toolbar-icons {
+  border-color: transparent;
+  filter: var(--toolbar-icon-filter);
+}
+
+#noteEditor .toastui-editor-toolbar-divider {
+  display: none;
+}
+
+#noteEditor .toastui-editor-toolbar-icons:hover {
+  background-color: var(--toolbar-hover);
+}
+
+#noteEditor .toastui-editor-toolbar-icons.active,
+#noteEditor .toastui-editor-toolbar-icons[aria-pressed="true"],
+#noteEditor .toolbar-item-wrapper.active .toastui-editor-toolbar-icons,
+#noteEditor .toolbar-item-wrapper[aria-pressed="true"] .toastui-editor-toolbar-icons {
+  border-color: var(--editor-accent);
+  background-color: var(--toolbar-active);
+  box-shadow: inset 0 0 0 1px var(--toolbar-active-ring);
+}
+
+#noteEditor .toastui-editor-toolbar-icons.timestamp,
+#noteEditor .toastui-editor-toolbar-icons.line-after {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  max-width: 32px;
+  padding: 0 !important;
+  line-height: 32px;
+  vertical-align: middle;
+  background: none !important;
+  background-image: none !important;
+  background-position: center !important;
+  filter: none;
+  color: var(--editor-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font-size: 0;
+  margin: 0 2px !important;
+  transform: none !important;
+}
+
+#noteEditor .toastui-editor-toolbar-icons.timestamp svg,
+#noteEditor .toastui-editor-toolbar-icons.line-after svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+#noteEditor .toolbar-item-wrapper:has(.timestamp),
+#noteEditor .toolbar-item-wrapper:has(.line-after) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 36px !important;
+  height: 32px !important;
+}
+
+#noteEditor .toastui-editor-popup,
+#noteEditor .toastui-editor-dropdown-toolbar {
+  border-color: var(--border);
+  background: var(--vault-panel);
+  color: var(--text);
+  box-shadow: 0 14px 32px var(--shadow);
+}
+
+#noteEditor .toastui-editor-popup-add-heading {
+  width: min(220px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
+  left: 8px !important;
+  right: auto !important;
+}
+
+#noteEditor .toastui-editor-popup-add-heading ul {
+  padding: 6px;
+}
+
+#noteEditor .toastui-editor-popup-add-heading ul li {
+  border-radius: 4px;
+  color: var(--text);
+}
+
+#noteEditor .toastui-editor-popup-add-heading ul li:hover {
+  background: var(--toolbar-hover);
+}
+
+#noteEditor .toastui-editor-dropdown-toolbar button,
+#noteEditor .toastui-editor-popup button,
+#noteEditor .toastui-editor-popup-add-heading button {
+  background: transparent;
+  color: var(--text);
+}
+
+#noteEditor .toastui-editor-popup-add-heading h1,
+#noteEditor .toastui-editor-popup-add-heading h2,
+#noteEditor .toastui-editor-popup-add-heading h3,
+#noteEditor .toastui-editor-popup-add-heading h4,
+#noteEditor .toastui-editor-popup-add-heading h5,
+#noteEditor .toastui-editor-popup-add-heading h6,
+#noteEditor .toastui-editor-popup-add-heading p {
+  color: var(--text);
+}
+
+#noteEditor .toastui-editor-tooltip {
+  border-color: var(--border);
+  background: var(--vault-panel);
+  color: var(--text);
+}
+
+#noteEditor .toastui-editor-main,
+#noteEditor .toastui-editor-main-container,
+#noteEditor .toastui-editor-ww-container,
+#noteEditor .toastui-editor-md-container {
+  min-height: 0 !important;
+  height: 100% !important;
+}
+
+#noteEditor .toastui-editor-main {
+  flex: 1 1 auto !important;
+}
+
+#noteEditor .toastui-editor-main-container {
+  position: relative !important;
+}
+
+#noteEditor .toastui-editor-ww-container,
+#noteEditor .toastui-editor-md-container {
+  overflow: auto !important;
+}
+
+#noteEditor .toastui-editor-contents,
+#noteEditor .ProseMirror {
+  background: var(--editor-bg);
+  color: var(--editor-text);
+  font-family: var(--font-sans);
+}
+
+#noteEditor .toastui-editor-contents,
+#noteEditor .ProseMirror {
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+#noteEditor .toastui-editor-contents {
+  min-height: 100% !important;
+  padding: 0;
+}
+
+#noteEditor .ProseMirror {
+  min-height: 100% !important;
+  padding: 32px 28px;
+  caret-color: var(--editor-text);
+  cursor: text;
+}
+
+#noteEditor.fallback-editor {
+  overflow: auto;
+  border-top: 1px solid var(--border);
+  padding: 32px 28px;
+  background: var(--editor-bg);
+  color: var(--editor-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.7;
+  outline: none;
+  white-space: pre-wrap;
+  caret-color: var(--editor-text);
+  cursor: text;
+}
+
+#noteEditor.fallback-editor:empty::before {
+  content: "Start writing...";
+  color: var(--editor-muted);
+}
+
+#noteEditor.fallback-editor h1,
+#noteEditor.fallback-editor h2,
+#noteEditor.fallback-editor h3,
+#noteEditor.fallback-editor h4,
+#noteEditor.fallback-editor h5,
+#noteEditor.fallback-editor h6 {
+  margin: 0 0 18px;
+  color: var(--heading-text);
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+#noteEditor.fallback-editor h1 {
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+#noteEditor.fallback-editor h2 {
+  font-size: 25px;
+  line-height: 1.25;
+}
+
+#noteEditor.fallback-editor h3 {
+  font-size: 21px;
+  line-height: 1.3;
+}
+
+#noteEditor.fallback-editor p,
+#noteEditor.fallback-editor ul,
+#noteEditor.fallback-editor blockquote {
+  margin: 0 0 18px;
+}
+
+#noteEditor.fallback-editor a {
+  color: var(--link);
+}
+
+#noteEditor.fallback-editor code {
+  border-radius: 4px;
+  padding: 2px 5px;
+  background: var(--vault-panel);
+}
+
+#noteEditor.fallback-editor blockquote {
+  border-left: 4px solid var(--editor-accent);
+  padding: 8px 12px;
+  color: var(--subtle-text);
+  background: var(--toolbar-hover);
+}
+
+#noteEditor .toastui-editor-contents h1,
+#noteEditor .toastui-editor-contents h2,
+#noteEditor .toastui-editor-contents h3,
+#noteEditor .toastui-editor-contents h4,
+#noteEditor .toastui-editor-contents h5,
+#noteEditor .toastui-editor-contents h6 {
+  border-bottom: 0;
+  color: var(--heading-text);
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+#noteEditor .toastui-editor-contents h1 {
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+#noteEditor .toastui-editor-contents h2 {
+  font-size: 25px;
+  line-height: 1.25;
+}
+
+#noteEditor .toastui-editor-contents h3 {
+  font-size: 21px;
+  line-height: 1.3;
+}
+
+#noteEditor .toastui-editor-contents p,
+#noteEditor .toastui-editor-contents li {
+  color: var(--editor-text);
+}
+
+#noteEditor .toastui-editor-contents blockquote {
+  border-left: 4px solid var(--editor-accent);
+  color: var(--subtle-text);
+  background: var(--toolbar-hover);
+}
+
+#noteEditor .toastui-editor-contents a {
+  color: var(--link);
+}
+
+#noteEditor .markdown-marker-active::before {
+  content: attr(data-markdown-prefix);
+  color: var(--editor-accent);
+  opacity: 0.45;
+  margin-right: 0.15em;
+  pointer-events: none;
+}
+
+#noteEditor .markdown-marker-active[data-markdown-prefix="- "]::before {
+  color: var(--editor-muted);
+}
+
+#noteEditor .toastui-editor-ww-code-block,
+#noteEditor .toastui-editor-md-code-block-line-background {
+  background: var(--vault-panel);
+}
+
+.statusbar {
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--border);
+  background: var(--panel);
+  min-height: 36px;
+  overflow: hidden;
+  position: relative;
+  z-index: 4;
+}
+
+#saveStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  min-width: 72px;
+  white-space: nowrap;
+}
+
+#saveStatus::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--editor-muted);
+}
+
+#saveStatus.saved::before {
+  background: var(--ok);
+}
+
+#saveStatus.warning::before {
+  background: var(--warn);
+}
+
+#saveStatus.saving::before {
+  background: var(--editor-accent);
+}
+
+.document-stats {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 8px;
+  color: var(--editor-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+#activeFile {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.saved {
+  color: var(--ok);
+}
+
+.warning {
+  color: var(--warn);
+}
+
+.shell.compact-mode {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 0;
+}
+
+.shell.compact-mode .vault-banner,
+.shell.compact-mode .note-list {
+  display: none;
+}
+
+.shell.compact-mode .workspace {
+  flex: 1 1 auto;
+  display: flex;
+  grid-template-columns: minmax(0, 1fr);
+  height: auto;
+  min-height: 0;
+}
+
+.shell.compact-mode .editor-pane {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.shell.compact-mode .editor-toolbar,
+.shell.compact-mode .statusbar {
+  flex: 0 0 auto;
+}
+
+.shell.compact-mode .markdown-surface {
+  flex: 1 1 auto;
+}
+
+.shell.compact-mode .editor-pane,
+.shell.compact-mode .markdown-surface,
+.shell.compact-mode #noteEditor,
+.shell.compact-mode #noteEditor .toastui-editor-defaultUI,
+.shell.compact-mode #noteEditor .toastui-editor-main,
+.shell.compact-mode #noteEditor .toastui-editor-main-container,
+.shell.compact-mode #noteEditor .toastui-editor-ww-container,
+.shell.compact-mode #noteEditor .toastui-editor-md-container {
+  background: var(--editor-bg) !important;
+}
+
+.shell.compact-mode .statusbar {
+  position: relative;
+  z-index: 3;
+}
+
+.shell.compact-mode #noteEditor .toastui-editor-main,
+.shell.compact-mode #noteEditor .toastui-editor-main-container,
+.shell.compact-mode #noteEditor .toastui-editor-ww-container,
+.shell.compact-mode #noteEditor .toastui-editor-md-container {
+  max-height: 100% !important;
+  overflow: auto !important;
+}
+
+@media (max-width: 540px) {
+  .workspace {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+  }
+
+  .note-list {
+    max-height: 180px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .editor-pane {
+    min-height: 0;
+  }
+
+  .markdown-surface,
+  #noteEditor,
+  #noteEditor .toastui-editor-defaultUI {
+    min-height: 0;
+  }
+
+  .vault-banner,
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .topbar {
+    flex-direction: row;
+  }
+
+  .editor-toolbar {
+    align-items: stretch;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .title-label {
+    align-self: center;
+  }
+
+  .statusbar {
+    align-items: center;
+    display: grid;
+    grid-template-columns: minmax(72px, auto) minmax(0, 1fr);
+    grid-auto-rows: minmax(16px, auto);
+  }
+
+  .document-stats {
+    grid-column: 1 / -1;
+    width: auto;
+  }
+
+  #activeFile {
+    text-align: right;
+  }
+}
