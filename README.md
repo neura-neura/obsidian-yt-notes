@@ -4,59 +4,59 @@
 
 # Obsidian YT Notes
 
-Extension de navegador para tomar notas Markdown locales mientras ves videos. Guarda tus notas en la carpeta que elijas, pensada para convivir con un vault de Obsidian sin depender de servicios externos.
+Browser extension for taking local Markdown notes while watching videos. Save your notes in the folder you choose, designed to work naturally with an Obsidian vault without relying on external services.
 
-![Ventana de notas de Obsidian YT Notes](assets/readme/notes-window.png)
+![Obsidian YT Notes note window](assets/readme/notes-window.png)
 
-## Caracteristicas
+## Features
 
-- Panel de notas integrado para videos y modo flotante.
-- Guardado local en archivos Markdown dentro de una carpeta seleccionada por el usuario.
-- Metadatos de fuente para conservar la URL del video junto con la nota.
-- Atajos de teclado para abrir notas, mostrar el boton flotante y controlar reproduccion.
-- Insercion de timestamps en formato de lista o linea simple.
-- Soporte para tema claro, oscuro o segun el sistema.
-- Lista de sitios bloqueados para desactivar la extension donde no la quieras usar.
-- UI localizada mediante `_locales`.
+- Integrated notes panel for videos, with floating mode support.
+- Local saving to Markdown files inside a user-selected folder.
+- Source metadata to keep the video URL alongside each note.
+- Keyboard shortcuts for opening notes, showing the floating button, and controlling playback.
+- Timestamp insertion as list items or plain lines.
+- Light, dark, and system theme support.
+- Blocked sites list for disabling the extension where you do not want it.
+- Localized UI through `_locales`.
 
-## Instalacion local
+## Local Installation
 
-1. Descarga o clona este repositorio.
-2. Abre `chrome://extensions` en Chrome, Edge o cualquier navegador compatible con extensiones Chromium.
-3. Activa **Developer mode**.
-4. Haz clic en **Load unpacked**.
-5. Selecciona la carpeta del proyecto.
-6. Abre las opciones de la extension y elige la carpeta donde quieres guardar tus notas.
+1. Download or clone this repository.
+2. Open `chrome://extensions` in Chrome, Edge, or any Chromium-compatible browser.
+3. Enable **Developer mode**.
+4. Click **Load unpacked**.
+5. Select the project folder.
+6. Open the extension options and choose the folder where your notes should be saved.
 
-Para usarla con videos locales, habilita **Allow access to file URLs** desde la tarjeta de la extension en `chrome://extensions`.
+To use it with local videos, enable **Allow access to file URLs** from the extension card in `chrome://extensions`.
 
-## Uso rapido
+## Quick Start
 
-- Abre un video en YouTube u otra plataforma.
-- Usa el popup de la extension para abrir la carpeta de notas o las notas del video actual.
-- Conecta una carpeta local cuando el panel lo solicite.
-- Escribe, edita y guarda tus notas en Markdown.
+- Open a video on YouTube or another platform.
+- Use the extension popup to open the notes folder or the current video's notes.
+- Connect a local folder when the panel asks for it.
+- Write, edit, and save your notes in Markdown.
 
-Atajos incluidos por defecto:
+Default shortcuts:
 
-- `Alt+Shift+O`: abrir el panel de notas.
-- `Alt+Shift+F`: abrir el panel flotante.
-- `Command+Shift+O` y `Command+Shift+F` en macOS.
+- `Alt+Shift+O`: open the notes panel.
+- `Alt+Shift+F`: open the floating panel.
+- `Command+Shift+O` and `Command+Shift+F` on macOS.
 
-## Estructura
+## Project Structure
 
-- `manifest.json`: manifiesto de extension MV3.
-- `content-script.js` y `video-hover-button.js`: integracion con paginas y reproductores.
-- `editor.html`, `editor.css`, `editor.js`: ventana principal de notas.
-- `popup.html`, `popup.css`, `popup.js`: popup de la extension.
-- `options.html`, `options.css`, `options.js`: configuracion.
-- `assets/`: iconos, fuentes y recursos visuales.
-- `models/`: modelos locales usados por las funciones de deteccion incluidas.
+- `manifest.json`: MV3 extension manifest.
+- `content-script.js` and `video-hover-button.js`: page and video player integration.
+- `editor.html`, `editor.css`, `editor.js`: main notes window.
+- `popup.html`, `popup.css`, `popup.js`: extension popup.
+- `options.html`, `options.css`, `options.js`: settings page.
+- `assets/`: icons, fonts, and visual resources.
+- `models/`: local models used by the included detection features.
 
-## Desarrollo
+## Development
 
-No requiere build para probarse como extension desempaquetada. Despues de editar los archivos, recarga la extension desde `chrome://extensions` y vuelve a cargar la pagina donde la estes usando.
+No build step is required to test it as an unpacked extension. After editing files, reload the extension from `chrome://extensions` and refresh the page where you are using it.
 
-## Licencia
+## License
 
-Agrega aqui la licencia que prefieras antes de distribuir publicamente el proyecto.
+Add your preferred license here before distributing the project publicly.
